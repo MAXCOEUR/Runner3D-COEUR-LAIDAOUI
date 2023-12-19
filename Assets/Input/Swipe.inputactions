@@ -1,0 +1,34 @@
+{
+    "name": "Swipe",
+    "maps": [
+        {
+            "name": "Gameplay",
+            "id": "432bdd86-67a3-4c0e-b670-5d439e96940d",
+            "actions": [
+                {
+                    "name": "TouchScreen",
+                    "type": "Button",
+                    "id": "a89f642f-6468-4c33-a34f-63f4e75cd11f",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "ad8c6b43-5457-4464-b169-504e20011b54",
+                    "path": "<Touchscreen>/Press",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "TouchScreen",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}
