@@ -1,10 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEditor;
-using UnityEngine.SceneManagement;
 using EnhancedTouch = UnityEngine.InputSystem.EnhancedTouch;
-using System.Diagnostics;
 
 public class MyPlayer : MonoBehaviour
 {
@@ -69,22 +64,22 @@ public class MyPlayer : MonoBehaviour
 
     public void RightSwipe()
     {
-        Debug.Log($"Right :Touch screen pos: {touch.screenPosition}");
+        Debug.Log($"Right :Touch screen pos:");
     }
 
     public void LeftSwipe()
     {
-        Debug.Log($"Left :Touch screen pos: {touch.screenPosition}");
+        Debug.Log($"Left :Touch screen pos: ");
     }
 
     public void UpSwipe()
     {
-        Debug.Log($"Up :Touch screen pos: {touch.screenPosition}");
+        Debug.Log($"Up :Touch screen pos: ");
     }
 
     public void DownSwipe()
     {
-        Debug.Log($"Down :Touch screen pos: {touch.screenPosition}");
+        Debug.Log($"Down :Touch screen pos:");
     }
 
     // Start is called before the first frame update
