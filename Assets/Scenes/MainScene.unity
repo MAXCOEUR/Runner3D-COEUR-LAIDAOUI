@@ -123,6 +123,11 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &262733694 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: ebbdc2d82fa4e814396ca29b3aae39d2, type: 3}
+  m_PrefabInstance: {fileID: 308586346}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &308586346
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -182,13 +187,28 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: ebbdc2d82fa4e814396ca29b3aae39d2, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 308586348}
   m_SourcePrefab: {fileID: 100100000, guid: ebbdc2d82fa4e814396ca29b3aae39d2, type: 3}
 --- !u!4 &308586347 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: ebbdc2d82fa4e814396ca29b3aae39d2, type: 3}
   m_PrefabInstance: {fileID: 308586346}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &308586348
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 262733694}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 285d989a2043df5498ad798e66a16c27, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1486075724
 GameObject:
   m_ObjectHideFlags: 0
@@ -416,7 +436,7 @@ Light:
   m_Type: 1
   m_Shape: 0
   m_Color: {r: 1, g: 0.95686275, b: 0.8392157, a: 1}
-  m_Intensity: 1
+  m_Intensity: 1.5
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -490,7 +510,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1931025002}
-  - component: {fileID: 1931025001}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -498,19 +517,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1931025001
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1931025000}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 285d989a2043df5498ad798e66a16c27, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Player: {fileID: 919132149155446097, guid: ebbdc2d82fa4e814396ca29b3aae39d2, type: 3}
 --- !u!4 &1931025002
 Transform:
   m_ObjectHideFlags: 0
