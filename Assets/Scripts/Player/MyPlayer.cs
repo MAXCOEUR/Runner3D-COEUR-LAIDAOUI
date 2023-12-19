@@ -23,7 +23,7 @@ public class MyPlayer : MonoBehaviour
     {
         EnhancedTouch.TouchSimulation.Enable();
         EnhancedTouch.EnhancedTouchSupport.Enable();
-        EnhancedTouch.Touch.onFingerDown += OnFingerDown;
+        EnhancedTouch.Touch.onFingerDown += OnFingerDown; 
         EnhancedTouch.Touch.onFingerUp += OnFingerUp;
     }
 
