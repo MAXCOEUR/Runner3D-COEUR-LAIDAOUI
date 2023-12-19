@@ -11,6 +11,7 @@ public class MyPlayer : MonoBehaviour
 
     public int DistanceParcouru { get; set; }
     public int CurrentLife { get; private set; }
+    public Animator animator;
 
     // Start is called before the first frame update
     void Start()

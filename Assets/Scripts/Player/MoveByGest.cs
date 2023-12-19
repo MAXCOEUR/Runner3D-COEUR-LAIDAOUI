@@ -1,5 +1,7 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using EnhancedTouch = UnityEngine.InputSystem.EnhancedTouch;
 
@@ -7,10 +9,18 @@ public class MoveBy : MonoBehaviour
 {
     private Vector2 fingerDown;
     private Coroutine moveCoroutine;
-    public float speed = 0.5f;
+    public float speed = 10;
     public float speedChange = 0.5f;
+    public float rollDuration = 0.5f;
+    public float jumpForce = 5.0f;
     public Rigidbody moveRigidbody = null;
     private int numerolane = 0;
+
+    private bool isRoll = false;
+    private bool isRunLeft = false;
+    private bool isRunRight = false;
+
+    public Animator animator;
 
     private void OnEnable()
     {
@@ -18,6 +28,8 @@ public class MoveBy : MonoBehaviour
         EnhancedTouch.EnhancedTouchSupport.Enable();
         EnhancedTouch.Touch.onFingerDown += OnFingerDown;
         EnhancedTouch.Touch.onFingerUp += OnFingerUp;
+
+        List<string> test =new List<string>();
     }
 
     private void OnDisable()
@@ -63,30 +75,32 @@ public class MoveBy : MonoBehaviour
 
     public void MoveRight()
     {
+        isRunRight = true;
         numerolane = Math.Min(numerolane + 2, 2);
-        RestartMoveCoroutine(numerolane);
+        RestartMoveCoroutine(numerolane,true);
     }
 
     public void MoveLeft()
     {
+        isRunLeft = true;
         numerolane = Math.Max(numerolane - 2, -2);
-        RestartMoveCoroutine(numerolane);
+        RestartMoveCoroutine(numerolane,false);
     }
 
-    private void RestartMoveCoroutine(float targetX)
+    private void RestartMoveCoroutine(float targetX,bool isRight)
     {
         if (moveCoroutine != null)
         {
             StopCoroutine(moveCoroutine);
         }
 
-        moveCoroutine = StartCoroutine(MoveToX(targetX));
+        moveCoroutine = StartCoroutine(MoveToX(targetX, isRight));
     }
 
-    IEnumerator MoveToX(float targetX)
+    IEnumerator MoveToX(float targetX, bool isRight)
     {
         float elapsedTime = 0f;
-        float initialX = transform.position.x;
+        float initialX = transform.position.x; 
 
         while (elapsedTime < speedChange)
         { 
@@ -97,14 +111,38 @@ public class MoveBy : MonoBehaviour
         }
 
         transform.position = new Vector3(targetX, transform.position.y, transform.position.z);
+        if(isRight)
+        {
+            isRunRight = false;
+        }
+        else
+        {
+            isRunLeft = false;
+        }
     }
+    IEnumerator AdjustColliderHeight(float targetHeight)
+    {
+        float initialHeight = moveRigidbody.GetComponent<CapsuleCollider>().height;
+
+        // Réduire la taille instantanément à la moitié
+        moveRigidbody.GetComponent<CapsuleCollider>().height = initialHeight / 2.0f;
+
+        yield return new WaitForSeconds(rollDuration);
+
+        // Restaurer la hauteur du CapsuleCollider à la fin de la roulade
+        moveRigidbody.GetComponent<CapsuleCollider>().height = initialHeight;
+
+        // Mettre à jour isRoll à false ici
+        isRoll = false; 
+    }
+
 
     public void Jump()
     {
         // Action à effectuer lors d'un swipe vers le haut (saut)
         Debug.Log("Jump");
         // Exemple : Appliquer une force vers le haut pour simuler un saut
-        //moveRigidbody.velocity = new Vector3(0, speed, 0);
+        moveRigidbody.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
     }
 
     public void Roll()
@@ -112,14 +150,19 @@ public class MoveBy : MonoBehaviour
         // Action à effectuer lors d'un swipe vers le bas (roulade)
         Debug.Log("Roll");
         // Exemple : Appliquer une force vers le bas pour simuler une roulade
-        //moveRigidbody.velocity = new Vector3(0, -speed, 0);
+
+        isRoll = true;
+        StartCoroutine(AdjustColliderHeight(0.5f));
     }
 
-    private void FixedUpdate()
+    private void Update()
     {
-        moveRigidbody.velocity = new Vector3(0
-            , 0
-            , speed);
-        transform.position = new Vector3(numerolane, transform.position.y, transform.position.z);
+        Debug.Log("Time.deltaTime : " + Time.deltaTime);
+        Debug.Log("vecteur : " +Vector3.forward * speed * Time.deltaTime);
+        transform.Translate(Vector3.forward * speed * Time.deltaTime);
+        animator.SetFloat("speed", Vector3.forward.magnitude);
+        animator.SetBool("isRoll", isRoll);
+        animator.SetBool("isRunLeft", isRunLeft);
+        animator.SetBool("isRunRight", isRunRight);
     }
 }
