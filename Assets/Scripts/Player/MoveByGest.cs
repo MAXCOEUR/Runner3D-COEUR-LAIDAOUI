@@ -117,8 +117,9 @@ public class MoveBy : MonoBehaviour
 
     private void FixedUpdate()
     {
-        moveRigidbody.velocity = new Vector3(moveRigidbody.velocity.x
-            , moveRigidbody.velocity.y
+        moveRigidbody.velocity = new Vector3(0
+            , 0
             , speed);
+        transform.position = new Vector3(numerolane, transform.position.y, transform.position.z);
     }
 }
