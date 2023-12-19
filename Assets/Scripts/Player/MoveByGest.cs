@@ -11,8 +11,9 @@ public class MoveBy : MonoBehaviour
     private Coroutine moveCoroutine;
     public float speed = 10;
     public float speedChange = 0.5f;
-    public float rollDuration = 0.5f;
+    public float rollDuration = 1.3f;
     public float jumpForce = 5.0f;
+    public GourndCheck GourndCheck;
     public Rigidbody moveRigidbody = null;
     private int numerolane = 0;
 
@@ -76,6 +77,7 @@ public class MoveBy : MonoBehaviour
     public void MoveRight()
     {
         isRunRight = true;
+        isRunLeft = false;
         numerolane = Math.Min(numerolane + 2, 2);
         RestartMoveCoroutine(numerolane,true);
     }
@@ -83,6 +85,7 @@ public class MoveBy : MonoBehaviour
     public void MoveLeft()
     {
         isRunLeft = true;
+        isRunRight = false;
         numerolane = Math.Max(numerolane - 2, -2);
         RestartMoveCoroutine(numerolane,false);
     }
@@ -122,15 +125,23 @@ public class MoveBy : MonoBehaviour
     }
     IEnumerator AdjustColliderHeight(float targetHeight)
     {
-        float initialHeight = moveRigidbody.GetComponent<CapsuleCollider>().height;
+        CapsuleCollider collider = moveRigidbody.GetComponent<CapsuleCollider>();
+        float initialHeight = collider.height;
+        float initialY = collider.center.y;
+
+        float newInitialHeight = initialHeight / 2.0f;
+
+        float newInitialY = initialY - (newInitialHeight / 2);
 
         // Réduire la taille instantanément à la moitié
-        moveRigidbody.GetComponent<CapsuleCollider>().height = initialHeight / 2.0f;
+        collider.height = newInitialHeight;
+        collider.center = new Vector3 (collider.center.x, newInitialY, collider.center.z);
 
         yield return new WaitForSeconds(rollDuration);
 
         // Restaurer la hauteur du CapsuleCollider à la fin de la roulade
-        moveRigidbody.GetComponent<CapsuleCollider>().height = initialHeight;
+        collider.height = initialHeight;
+        collider.center = new Vector3(collider.center.x, initialY, collider.center.z);
 
         // Mettre à jour isRoll à false ici
         isRoll = false; 
@@ -139,10 +150,13 @@ public class MoveBy : MonoBehaviour
 
     public void Jump()
     {
-        // Action à effectuer lors d'un swipe vers le haut (saut)
-        Debug.Log("Jump");
-        // Exemple : Appliquer une force vers le haut pour simuler un saut
-        moveRigidbody.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+        if (GourndCheck.getIsGround())
+        {
+            // Action à effectuer lors d'un swipe vers le haut (saut)
+            Debug.Log("Jump");
+            // Exemple : Appliquer une force vers le haut pour simuler un saut
+            moveRigidbody.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+        }
     }
 
     public void Roll()
@@ -157,9 +171,13 @@ public class MoveBy : MonoBehaviour
 
     private void Update()
     {
-        Debug.Log("Time.deltaTime : " + Time.deltaTime);
-        Debug.Log("vecteur : " +Vector3.forward * speed * Time.deltaTime);
-        transform.Translate(Vector3.forward * speed * Time.deltaTime);
+
+        Vector3 moveDirection = new Vector3(moveRigidbody.velocity.x, moveRigidbody.velocity.y, Vector3.forward.z * speed);
+
+
+        // Utiliser la vélocité pour le déplacement
+        moveRigidbody.velocity = moveDirection;
+
         animator.SetFloat("speed", Vector3.forward.magnitude);
         animator.SetBool("isRoll", isRoll);
         animator.SetBool("isRunLeft", isRunLeft);
