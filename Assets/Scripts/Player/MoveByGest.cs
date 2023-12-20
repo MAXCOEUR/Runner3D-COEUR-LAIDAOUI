@@ -5,9 +5,9 @@ using System.Linq;
 using UnityEngine;
 using EnhancedTouch = UnityEngine.InputSystem.EnhancedTouch;
 
-public class MoveBy : MonoBehaviour
+public class MoveByGest : MonoBehaviour
 {
-    private Vector2 fingerDown;
+    private Vector2? fingerDown;
     private Coroutine moveCoroutine;
     public float speed = 1.5f;
     public float changeLineDuration = 0.5f;
@@ -23,7 +23,7 @@ public class MoveBy : MonoBehaviour
 
     public Animator animator;
 
-    private void OnEnable()
+    private void Start()
     {
         EnhancedTouch.TouchSimulation.Enable();
         EnhancedTouch.EnhancedTouchSupport.Enable();
@@ -43,12 +43,32 @@ public class MoveBy : MonoBehaviour
 
     private void OnFingerDown(EnhancedTouch.Finger finger)
     {
+        // Récupérer la hauteur de l'écran
+        float screenHeight = Screen.height;
+
+        // Vérifier si le clic est dans la moitié inférieure de l'écran
+        if (finger.screenPosition.y > screenHeight / 2)
+        {
+            fingerDown = null;
+            return;
+        }
+        if (!UIManager.Instance.isPlay())
+        {
+            fingerDown = null;
+            return;
+        }
         fingerDown = finger.screenPosition;
+
     }
+
 
     private void OnFingerUp(EnhancedTouch.Finger finger)
     {
-        Vector2 inputVector = finger.screenPosition - fingerDown;
+        if (fingerDown == null)
+        {
+            return;
+        }
+        Vector2 inputVector = (Vector2)(finger.screenPosition - fingerDown);
 
         if (Mathf.Abs(inputVector.x) > Mathf.Abs(inputVector.y))
         {
