@@ -9,10 +9,10 @@ public class MoveBy : MonoBehaviour
 {
     private Vector2 fingerDown;
     private Coroutine moveCoroutine;
-    public float speed = 10;
-    public float speedChange = 0.5f;
-    public float rollDuration = 1.3f;
-    public float jumpForce = 5.0f;
+    public float speed = 1.5f;
+    public float changeLineDuration = 0.5f;
+    public float rollDuration = 1f;
+    public float jumpForce = 10.0f;
     public GourndCheck GourndCheck;
     public Rigidbody moveRigidbody = null;
     private int numerolane = 0;
@@ -105,10 +105,10 @@ public class MoveBy : MonoBehaviour
         float elapsedTime = 0f;
         float initialX = transform.position.x; 
 
-        while (elapsedTime < speedChange)
+        while (elapsedTime < changeLineDuration)
         { 
             elapsedTime += Time.deltaTime;
-            float t = Mathf.SmoothStep(0, 1, elapsedTime / speedChange);
+            float t = Mathf.SmoothStep(0, 1, elapsedTime / changeLineDuration);
             transform.position = new Vector3(Mathf.Lerp(initialX, targetX, t), transform.position.y, transform.position.z);
             yield return null;
         }
