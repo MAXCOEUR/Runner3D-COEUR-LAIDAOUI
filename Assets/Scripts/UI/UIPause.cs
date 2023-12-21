@@ -50,6 +50,6 @@ public class UIPause : MonoBehaviour
     }
     void btQuitClick()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name); 
+        SceneManager.LoadScene("MenuStart");
     }
 }

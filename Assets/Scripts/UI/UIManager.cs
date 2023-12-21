@@ -26,6 +26,7 @@ public class UIManager : Singleton<UIManager>
 
     private void Start()
     {
+        Time.timeScale = 1f;
         player = FindAnyObjectByType<MyPlayer>();
         if (btPausePlay != null)
         {

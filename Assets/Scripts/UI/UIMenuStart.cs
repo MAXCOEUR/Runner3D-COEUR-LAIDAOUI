@@ -18,32 +18,15 @@ public class UIMenuStart : Singleton<UIMenuStart>
         {
             btPlay.onClick.AddListener(btPlayClick);
         }
-        Time.timeScale = 0f;
-        setActive(true);
-    }
-
-    public void setActive(bool active)
-    {
-        Time.timeScale = 0f;
-        if (canvas != null)
-        {
-            canvas.SetActive(active);
-        }
     }
 
     private void Update()
     {
     }
 
-    public void start()
-    {
-        setActive(false);
-        Time.timeScale = 1f;
-    }
-
 
     void btPlayClick()
     {
-        start();
+        SceneManager.LoadScene("MainSceneWithMenu");
     }
 }

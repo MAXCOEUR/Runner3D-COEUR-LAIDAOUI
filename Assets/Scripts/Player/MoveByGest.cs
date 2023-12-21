@@ -3,16 +3,16 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using EnhancedTouch = UnityEngine.InputSystem.EnhancedTouch;
+using UnityEngine.InputSystem.EnhancedTouch;
 
 public class MoveByGest : MonoBehaviour
 {
     private Vector2? fingerDown;
     private Coroutine moveCoroutine;
-    public float speed = 1.5f;
+    public float speed = 2f;
     public float changeLineDuration = 0.5f;
     public float rollDuration = 1f;
-    public float jumpForce = 10.0f;
+    public float jumpForce = 5.0f;
     public GourndCheck GourndCheck;
     public Rigidbody moveRigidbody = null;
     private int numerolane = 0;
@@ -23,75 +23,18 @@ public class MoveByGest : MonoBehaviour
 
     public Animator animator;
 
-    private void Start()
-    {
-        EnhancedTouch.TouchSimulation.Enable();
-        EnhancedTouch.EnhancedTouchSupport.Enable();
-        EnhancedTouch.Touch.onFingerDown += OnFingerDown;
-        EnhancedTouch.Touch.onFingerUp += OnFingerUp;
+    private bool hasProcessedTouch = false;
 
-        List<string> test =new List<string>();
+    private void OnEnable()
+    {
+        UnityEngine.InputSystem.EnhancedTouch.TouchSimulation.Enable();
+        UnityEngine.InputSystem.EnhancedTouch.EnhancedTouchSupport.Enable();
     }
 
     private void OnDisable()
     {
-        EnhancedTouch.Touch.onFingerDown -= OnFingerDown;
-        EnhancedTouch.Touch.onFingerUp -= OnFingerUp;
-        EnhancedTouch.TouchSimulation.Disable();
-        EnhancedTouch.EnhancedTouchSupport.Disable();
-    }
-
-    private void OnFingerDown(EnhancedTouch.Finger finger)
-    {
-        // Récupérer la hauteur de l'écran
-        float screenHeight = Screen.height;
-
-        // Vérifier si le clic est dans la moitié inférieure de l'écran
-        if (finger.screenPosition.y > screenHeight / 2)
-        {
-            fingerDown = null;
-            return;
-        }
-        if (!UIManager.Instance.isPlay())
-        {
-            fingerDown = null;
-            return;
-        }
-        fingerDown = finger.screenPosition;
-
-    }
-
-
-    private void OnFingerUp(EnhancedTouch.Finger finger)
-    {
-        if (fingerDown == null)
-        {
-            return;
-        }
-        Vector2 inputVector = (Vector2)(finger.screenPosition - fingerDown);
-
-        if (Mathf.Abs(inputVector.x) > Mathf.Abs(inputVector.y))
-        {
-            if (inputVector.x > 0)
-            {
-                MoveRight();
-            }
-            else
-            {
-                MoveLeft();
-            }
-        }
-        else
-        {
-            if (inputVector.y > 0)
-            {
-                Jump();
-            }
-            else
-            {
-                Roll();
-            }
-        }
+        UnityEngine.InputSystem.EnhancedTouch.TouchSimulation.Disable();
+        UnityEngine.InputSystem.EnhancedTouch.EnhancedTouchSupport.Disable();
     }
 
     public void MoveRight()
@@ -149,9 +92,9 @@ public class MoveByGest : MonoBehaviour
         float initialHeight = collider.height;
         float initialY = collider.center.y;
 
-        float newInitialHeight = initialHeight / 2.0f;
+        float newInitialHeight = initialHeight * targetHeight;
 
-        float newInitialY = initialY - (newInitialHeight / 2);
+        float newInitialY = initialY - (newInitialHeight * (1-targetHeight));
 
         // Réduire la taille instantanément à la moitié
         collider.height = newInitialHeight;
@@ -186,12 +129,59 @@ public class MoveByGest : MonoBehaviour
         // Exemple : Appliquer une force vers le bas pour simuler une roulade
 
         isRoll = true;
-        StartCoroutine(AdjustColliderHeight(0.5f));
+        StartCoroutine(AdjustColliderHeight(0.3f)); 
+    }
+
+    private void gestuelTouch()
+    {
+        foreach (UnityEngine.Touch touch in Input.touches)
+        {
+            if (touch.phase == TouchPhase.Began && !hasProcessedTouch)
+            {
+                float screenHeight = Screen.height;
+
+                if (touch.position.y > screenHeight / 2 || !UIManager.Instance.isPlay())
+                {
+                    continue;
+                }
+
+                fingerDown = touch.position;
+                hasProcessedTouch = true;
+            }
+            else if (touch.phase == TouchPhase.Ended && hasProcessedTouch)
+            {
+                Vector2 inputVector = (Vector2)(touch.position - fingerDown);
+
+                if (Mathf.Abs(inputVector.x) > Mathf.Abs(inputVector.y))
+                {
+                    if (inputVector.x > 0)
+                    {
+                        MoveRight();
+                    }
+                    else
+                    {
+                        MoveLeft();
+                    }
+                }
+                else
+                {
+                    if (inputVector.y > 0)
+                    {
+                        Jump();
+                    }
+                    else
+                    {
+                        Roll();
+                    }
+                }
+
+                hasProcessedTouch = false;
+            }
+        }
     }
 
     private void Update()
     {
-
         Vector3 moveDirection = new Vector3(moveRigidbody.velocity.x, moveRigidbody.velocity.y, Vector3.forward.z * speed);
 
 
@@ -202,5 +192,8 @@ public class MoveByGest : MonoBehaviour
         animator.SetBool("isRoll", isRoll);
         animator.SetBool("isRunLeft", isRunLeft);
         animator.SetBool("isRunRight", isRunRight);
+        // Traiter les événements tactiles ici avec Input.touches
+
+        gestuelTouch();
     }
 }
