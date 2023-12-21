@@ -43,10 +43,11 @@ public class UIDeath : MonoBehaviour
     void btRestartClick()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-        Time.timeScale = 1f;
+        UIMenuStart.Instance.start();
     }
     void btQuitClick()
     {
+        SceneManager.UnloadSceneAsync(SceneManager.GetActiveScene());
         SceneManager.LoadScene("MenuStart");
     }
 }

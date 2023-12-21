@@ -7,9 +7,10 @@ using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class UIMenuStart : MonoBehaviour
+public class UIMenuStart : Singleton<UIMenuStart>
 {
     public Button btPlay;
+    public GameObject canvas;
 
     private void Start()
     {
@@ -17,16 +18,32 @@ public class UIMenuStart : MonoBehaviour
         {
             btPlay.onClick.AddListener(btPlayClick);
         }
+        Time.timeScale = 0f;
+        setActive(true);
+    }
+
+    public void setActive(bool active)
+    {
+        Time.timeScale = 0f;
+        if (canvas != null)
+        {
+            canvas.SetActive(active);
+        }
     }
 
     private void Update()
     {
     }
 
+    public void start()
+    {
+        setActive(false);
+        Time.timeScale = 1f;
+    }
+
 
     void btPlayClick()
     {
-        SceneManager.LoadScene("MainSceneMaxence");
-        UIManager.Instance.restObjet();
+        start();
     }
 }

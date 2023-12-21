@@ -14,11 +14,6 @@ public class UIManager : Singleton<UIManager>
 
     private MyPlayer player = null;
     public GameObject pauseCanvas;
-
-    public void restObjet()
-    {
-        Time.timeScale = 1f;
-    }
     public bool isPlay()
     {
         if (pauseCanvas != null)
