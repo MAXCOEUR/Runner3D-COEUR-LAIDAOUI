@@ -11,15 +11,16 @@ public class GourndCheck : MonoBehaviour
     {
         return isGround;
     }
-    private void OnTriggerEnter(Collider other)
+    public void setJumpGround()
     {
-        Debug.Log("OnCollisionEnter");
         isGround = true;
     }
-    private void OnTriggerExit(Collider other)
+    private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("OnCollisionExit");
-        isGround = false;
-
+        if (other.gameObject.CompareTag("Ground"))
+        {
+            Debug.Log("OnCollisionEnter");
+            isGround = true;
+        }
     }
 }

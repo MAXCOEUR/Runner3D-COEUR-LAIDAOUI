@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem.EnhancedTouch;
 
@@ -9,7 +10,7 @@ public class MoveByGest : MonoBehaviour
 {
     private Vector2? fingerDown;
     private Coroutine moveCoroutine;
-    public float speed = 2f;
+    public float speed = 3f;
     public float changeLineDuration = 0.5f;
     public float rollDuration = 1f;
     public float jumpForce = 5.0f;
@@ -102,11 +103,9 @@ public class MoveByGest : MonoBehaviour
 
         yield return new WaitForSeconds(rollDuration);
 
-        // Restaurer la hauteur du CapsuleCollider à la fin de la roulade
         collider.height = initialHeight;
         collider.center = new Vector3(collider.center.x, initialY, collider.center.z);
 
-        // Mettre à jour isRoll à false ici
         isRoll = false; 
     }
 
@@ -115,21 +114,19 @@ public class MoveByGest : MonoBehaviour
     {
         if (GourndCheck.getIsGround())
         {
-            // Action à effectuer lors d'un swipe vers le haut (saut)
             Debug.Log("Jump");
-            // Exemple : Appliquer une force vers le haut pour simuler un saut
+            GourndCheck.setJumpGround();
             moveRigidbody.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
         }
     }
 
     public void Roll()
     {
-        // Action à effectuer lors d'un swipe vers le bas (roulade)
         Debug.Log("Roll");
-        // Exemple : Appliquer une force vers le bas pour simuler une roulade
 
         isRoll = true;
-        StartCoroutine(AdjustColliderHeight(0.3f)); 
+        StartCoroutine(AdjustColliderHeight(0.3f));
+        moveRigidbody.AddForce(Vector3.down * jumpForce, ForceMode.Impulse);
     }
 
     private void gestuelTouch()
@@ -182,7 +179,8 @@ public class MoveByGest : MonoBehaviour
 
     private void Update()
     {
-        Vector3 moveDirection = new Vector3(moveRigidbody.velocity.x, moveRigidbody.velocity.y, Vector3.forward.z * speed);
+        float vitesse = MapDistanceToValue(gameObject.transform.position.z);
+        Vector3 moveDirection = new Vector3(moveRigidbody.velocity.x, moveRigidbody.velocity.y, Vector3.forward.z * vitesse);
 
 
         // Utiliser la vélocité pour le déplacement
@@ -195,5 +193,33 @@ public class MoveByGest : MonoBehaviour
         // Traiter les événements tactiles ici avec Input.touches
 
         gestuelTouch();
+    }
+    float MapDistanceToValue(float distance)
+    {
+        // Utiliser une fonction linéaire pour ajuster la valeur en fonction de la distance
+        float distanceMin = 0f;
+        float distanceMax1 = 1000f;
+        float distanceMax2 = 10000f;
+
+        float valeurMin = speed;
+        float valeurMax1 = 10f;
+        float valeurMax2 = 15f;
+
+        float mappedValue;
+
+        if (distance <= distanceMax1)
+        {
+            mappedValue = Mathf.Lerp(valeurMin, valeurMax1, Mathf.InverseLerp(distanceMin, distanceMax1, distance));
+        }
+        else if (distance <= distanceMax2)
+        {
+            mappedValue = Mathf.Lerp(valeurMax1, valeurMax2, Mathf.InverseLerp(distanceMax1, distanceMax2, distance));
+        }
+        else
+        {
+            mappedValue = valeurMax2; // Au-delà de distanceMax2, la valeur est constante à 15
+        }
+
+        return mappedValue;
     }
 }
