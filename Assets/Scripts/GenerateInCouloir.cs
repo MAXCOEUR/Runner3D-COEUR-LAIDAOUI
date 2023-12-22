@@ -35,7 +35,6 @@ public class GenerateInCouloir : MonoBehaviour
             {
                 GameObject instantiatedPrefab = Instantiate(ObjetRandomNotSelf[conteur++], gameObject.transform.position, gameObject.transform.rotation);
                 instantiatedPrefab.transform.parent = gameObject.transform;
-                Debug.Log(gameObject.transform.position.z);
                 instantiatedPrefab.transform.position += new Vector3(x * 2, 0f, 3f);
             }
         }
