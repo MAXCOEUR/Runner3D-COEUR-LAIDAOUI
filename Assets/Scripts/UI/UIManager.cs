@@ -9,7 +9,10 @@ using UnityEngine.UI;
 
 public class UIManager : Singleton<UIManager>
 {
-    public ScoreCounter scoreCounter = null; 
+    public TextMeshProUGUI counterText = null;
+    public TextMeshProUGUI jetonText = null;
+    public TextMeshProUGUI multiplicateurText = null;
+
     public Button btPausePlay;
 
     private MyPlayer player = null;
@@ -35,8 +38,10 @@ public class UIManager : Singleton<UIManager>
     }
 
     private void Update()
-    { 
-        scoreCounter.SetText(player.getScore());
+    {
+        counterText.text = $"Score: {player.getScore()}";
+        jetonText.text = $"Jeton: {player.getJeton()}";
+        multiplicateurText.text = $"x{player.getMultiplicateur()}";
     }
 
 

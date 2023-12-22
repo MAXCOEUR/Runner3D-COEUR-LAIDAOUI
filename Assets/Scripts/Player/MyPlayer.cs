@@ -1,3 +1,5 @@
+using System.Collections;
+using System.Threading;
 using UnityEngine;
 using EnhancedTouch = UnityEngine.InputSystem.EnhancedTouch;
 
@@ -11,7 +13,7 @@ public class MyPlayer : MonoBehaviour
 
     private int score = 0;
     private int jeton = 0;
-    private int addScore = 1;
+    private int multiplicateur = 1;
     
 
     public int getScore()
@@ -21,6 +23,10 @@ public class MyPlayer : MonoBehaviour
     public int getJeton()
     {
         return jeton;
+    }
+    public int getMultiplicateur()
+    {
+        return multiplicateur;
     }
 
     void Start()
@@ -34,7 +40,7 @@ public class MyPlayer : MonoBehaviour
         {
             DistanceParcouru = (int)transform.position.z;
 
-            score+= addScore;
+            score+= multiplicateur;
         }
     }
     private void OnCollisionEnter(Collision collision)
@@ -61,6 +67,28 @@ public class MyPlayer : MonoBehaviour
                 }
             }
         }
+    }
+
+    private void OnTriggerEnter(Collider collision)
+    {
+        Debug.Log("OnTriggerEnter");
+        if (collision.gameObject.CompareTag("Jeton"))
+        {
+            jeton++;
+            Destroy(collision.gameObject);
+        }
+        else if (collision.gameObject.CompareTag("X2"))
+        {
+            multiplicateur = multiplicateur * 2;
+            StartCoroutine(startX2());
+            Destroy(collision.gameObject);
+        }
+    }
+
+    IEnumerator startX2()
+    {
+        yield return new WaitForSeconds(10f); // Attendre pendant 10 secondes
+        multiplicateur = multiplicateur / 2;
     }
 
 }
