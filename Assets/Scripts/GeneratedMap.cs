@@ -8,6 +8,7 @@ using UnityEngine;
 
 public class GeneratedMap : MonoBehaviour
 {
+
     public GameObject player = null;
     public GameObject TruePattern = null;
     public List<GameObject> Pattern = new List<GameObject>();

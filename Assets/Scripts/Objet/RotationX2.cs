@@ -10,6 +10,7 @@ public class RotationX2 : MonoBehaviour
         
     }
 
+
     // Update is called once per frame
     void Update()
     {

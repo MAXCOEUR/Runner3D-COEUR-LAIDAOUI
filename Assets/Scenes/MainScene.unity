@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657826, g: 0.49641263, b: 0.57481676, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1355,6 +1355,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 285d989a2043df5498ad798e66a16c27, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animator: {fileID: 0}
+  deathCanvas: {fileID: 0}
+  isMagnet: 0
 --- !u!65 &308586349
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1421,8 +1424,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 10
-  speedChange: 0.5
+  changeLineDuration: 0.5
+  rollDuration: 1
+  jumpForce: 5
+  GourndCheck: {fileID: 0}
   moveRigidbody: {fileID: 308586350}
+  animator: {fileID: 0}
 --- !u!1 &319125059
 GameObject:
   m_ObjectHideFlags: 0
@@ -4017,8 +4024,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1486075724}
-  m_LocalRotation: {x: 0.12186928, y: 0, z: 0, w: 0.9925462}
-  m_LocalPosition: {x: 0, y: 8.1, z: -12}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.009199984, y: 2.85, z: -7.44}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

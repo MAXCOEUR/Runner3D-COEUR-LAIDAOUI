@@ -1,3 +1,4 @@
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,6 +7,9 @@ public class GenerateInCouloir : MonoBehaviour
 {
     public GameObject prefabJeton;
     public GameObject prefabX2;
+    public GameObject prefabMagnet;
+
+
 
     public List<GameObject> listObstacle = new List<GameObject>();
     public List<GameObject> listObstacleSafe = new List<GameObject>();
@@ -51,6 +55,16 @@ public class GenerateInCouloir : MonoBehaviour
         {
             int line = randomLineRecusive(lineSafe);
             GameObject instantiatedPrefab = Instantiate(prefabX2, gameObject.transform.position, gameObject.transform.rotation);
+            instantiatedPrefab.transform.parent = gameObject.transform;
+            instantiatedPrefab.transform.position += new Vector3(line * 2, 0.5f, 1);
+
+        }
+
+        bool isMagnet = Random.Range(1, 101) < 20;
+        if (!isX2 && isMagnet)
+        {
+            int line = randomLineRecusive(lineSafe);
+            GameObject instantiatedPrefab = Instantiate(prefabMagnet, gameObject.transform.position, gameObject.transform.rotation);
             instantiatedPrefab.transform.parent = gameObject.transform;
             instantiatedPrefab.transform.position += new Vector3(line * 2, 0.5f, 1);
         }

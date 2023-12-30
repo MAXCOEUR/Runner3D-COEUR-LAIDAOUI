@@ -5437,6 +5437,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prefabJeton: {fileID: 3961499870473430985, guid: 6d7f3c41514b93240bf61b8021651e01, type: 3}
   prefabX2: {fileID: 518845416700985553, guid: d851181a1730b24469832882c3c6dde2, type: 3}
+  prefabMagnet: {fileID: 56171187714205257, guid: f1df40b97aa5d6b40a3c50a6ed043811, type: 3}
   listObstacle:
   - {fileID: 6826156345093670811, guid: 0b96696d10f817e46a2f6462d05fc0f5, type: 3}
   - {fileID: 1256720993539091480, guid: 51309e3610d09d4459083a7ba8a39376, type: 3}
