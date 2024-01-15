@@ -30,7 +30,7 @@ Transform:
   m_Children:
   - {fileID: 1114535052655770549}
   m_Father: {fileID: 0}
-  m_RootOrder: 13
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5103482829954027332
 GameObject:
@@ -136,5 +136,5 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.019903857, y: 0.009867897, z: 0.09469445}
-  m_Center: {x: -0.000018627383, y: -0.00496424, z: -0.00046571903}
+  m_Size: {x: 0.019903857, y: 0.008810543, z: 0.09469445}
+  m_Center: {x: -0.000018627643, y: -0.0044355616, z: -0.00046572054}

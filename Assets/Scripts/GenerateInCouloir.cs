@@ -56,7 +56,7 @@ public class GenerateInCouloir : MonoBehaviour
             int line = randomLineRecusive(lineSafe);
             GameObject instantiatedPrefab = Instantiate(prefabX2, gameObject.transform.position, gameObject.transform.rotation);
             instantiatedPrefab.transform.parent = gameObject.transform;
-            instantiatedPrefab.transform.position += new Vector3(line * 2, 0.5f, 1);
+            instantiatedPrefab.transform.position += new Vector3(line * 2, 0.5f, -3);
 
         }
 
@@ -66,7 +66,7 @@ public class GenerateInCouloir : MonoBehaviour
             int line = randomLineRecusive(lineSafe);
             GameObject instantiatedPrefab = Instantiate(prefabMagnet, gameObject.transform.position, gameObject.transform.rotation);
             instantiatedPrefab.transform.parent = gameObject.transform;
-            instantiatedPrefab.transform.position += new Vector3(line * 2, 0.5f, 1);
+            instantiatedPrefab.transform.position += new Vector3(line * 2, 0.5f, -3);
         }
     }
     int randomLineRecusive(int x)

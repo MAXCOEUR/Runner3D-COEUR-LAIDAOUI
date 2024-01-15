@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -353,7 +353,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 405180438}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.009199984, y: 2.85, z: -7.44}
+  m_LocalPosition: {x: -0.060800016, y: 3.85, z: -7.44}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -926,9 +926,21 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 2282907746852245459, guid: 4a051c02a3ef80842b07f103f0f66fa8, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2678962929740861626, guid: 4a051c02a3ef80842b07f103f0f66fa8, type: 3}
       propertyPath: m_Name
       value: uiInGame
+      objectReference: {fileID: 0}
+    - target: {fileID: 3211137355444509272, guid: 4a051c02a3ef80842b07f103f0f66fa8, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7520552484555205428, guid: 4a051c02a3ef80842b07f103f0f66fa8, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8855813514678945284, guid: 4a051c02a3ef80842b07f103f0f66fa8, type: 3}
       propertyPath: m_Pivot.x
@@ -1012,6 +1024,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8855813514678945284, guid: 4a051c02a3ef80842b07f103f0f66fa8, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9127569762034822379, guid: 4a051c02a3ef80842b07f103f0f66fa8, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -215
+      objectReference: {fileID: 0}
+    - target: {fileID: 9127569762034822379, guid: 4a051c02a3ef80842b07f103f0f66fa8, type: 3}
+      propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
