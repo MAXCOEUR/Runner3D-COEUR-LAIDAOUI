@@ -10,6 +10,7 @@ public class GenerationCouloir : MonoBehaviour
     public GameObject Player;
     public GameObject FistCouloir;
 
+
     private List<GameObject> couloirs = new List<GameObject>();
 
     private long conteur = 1;

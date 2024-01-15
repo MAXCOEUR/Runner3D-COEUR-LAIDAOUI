@@ -10,6 +10,7 @@ public class MyPlayer : MonoBehaviour
     public int CurrentLife { get; private set; }
     public Animator animator;
     public GameObject deathCanvas;
+    public bool isMagnet = false;
 
     private int score = 0;
     private int jeton = 0;
@@ -83,12 +84,23 @@ public class MyPlayer : MonoBehaviour
             StartCoroutine(startX2());
             Destroy(collision.gameObject);
         }
+        else if (collision.gameObject.CompareTag("Magnet"))
+        {
+            isMagnet = true;
+            StartCoroutine(magnet());
+            Destroy(collision.gameObject);
+        }
     }
 
     IEnumerator startX2()
     {
         yield return new WaitForSeconds(10f); // Attendre pendant 10 secondes
         multiplicateur = multiplicateur / 2;
+    }
+    IEnumerator magnet()
+    {
+        yield return new WaitForSeconds(10f); // Attendre pendant 10 secondes
+        isMagnet = false;
     }
 
 }

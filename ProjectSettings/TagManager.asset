@@ -8,6 +8,7 @@ TagManager:
   - Obstacles
   - Jeton
   - X2
+  - Magnet
   layers:
   - Default
   - TransparentFX

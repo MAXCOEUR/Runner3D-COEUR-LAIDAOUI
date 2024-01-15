@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2165596716653198210}
+  - component: {fileID: 5156654748810033532}
   m_Layer: 0
   m_Name: Jeton
   m_TagString: Untagged
@@ -30,8 +31,22 @@ Transform:
   m_Children:
   - {fileID: 109215081096379603}
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5156654748810033532
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3961499870473430985}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a1c28b40744da74e86c878e42da4f76, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 50
+  player: {fileID: 4818355673162073599, guid: f9f864188e5389b498f87e49d691fbec, type: 3}
 --- !u!1 &7471792085391013492
 GameObject:
   m_ObjectHideFlags: 0
@@ -45,6 +60,7 @@ GameObject:
   - component: {fileID: 6131580050341993934}
   - component: {fileID: 8509063505841751381}
   - component: {fileID: 5171052643956871833}
+  - component: {fileID: 7728924679115350018}
   m_Layer: 8
   m_Name: Jeton
   m_TagString: Jeton
@@ -151,3 +167,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b8272fc16060dc4dabd606394593e12, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &7728924679115350018
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7471792085391013492}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a1c28b40744da74e86c878e42da4f76, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 50
+  player: {fileID: 4818355673162073599, guid: f9f864188e5389b498f87e49d691fbec, type: 3}
